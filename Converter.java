@@ -1,22 +1,18 @@
 import java.util.TreeMap;
+import java.io.IOException;
 
-public class Converter {
-    TreeMap<Character, Integer> romanKeyMap = new TreeMap<>();
-    TreeMap<Integer, String> arabianKeyMap = new TreeMap<>();
+public class Changer { //создаем класс Charger для преобразования арабских чисел в римские и обратно
+    TreeMap<Character, Integer> romanKeyMap = new TreeMap<>(); // создаем переменную romanKeyMap класса Treemap
+    TreeMap<Integer, String> arabianKeyMap = new TreeMap<>(); // создаем переменную arabianKeyMap класса Treemap
 
-    public Converter() {
+    public Changer() {  // дерево для преобразований римских чисел в арабские и обратно
         romanKeyMap.put('I', 1);
         romanKeyMap.put('V', 5);
         romanKeyMap.put('X', 10);
         romanKeyMap.put('L', 50);
         romanKeyMap.put('C', 100);
-        romanKeyMap.put('D', 500);
-        romanKeyMap.put('M', 1000);
 
-        arabianKeyMap.put(1000, "M");
-        arabianKeyMap.put(900, "CM");
-        arabianKeyMap.put(500, "D");
-        arabianKeyMap.put(400, "CD");
+
         arabianKeyMap.put(100, "C");
         arabianKeyMap.put(90, "XC");
         arabianKeyMap.put(50, "L");
@@ -26,39 +22,45 @@ public class Converter {
         arabianKeyMap.put(5, "V");
         arabianKeyMap.put(4, "IV");
         arabianKeyMap.put(1, "I");
-
     }
 
 
-    public boolean isRoman(String number){
-        return romanKeyMap.containsKey(number.charAt(0));
+    public boolean isRoman(String number){ // создаем переменную для проверки римские или арабские числа введены
+
+        return romanKeyMap.containsKey(number.charAt(0)); // отправляем результат в дерево
     }
 
-    //15
-    public String intToRoman(int number) {
+    public String intToRoman(int number) throws NullPointerException { // создаем переменную для преобразования арабских чисел в римские
         String roman = "";
-        int arabianKey;
-        do {
+        int arabianKey = 0;
+        do { try {
             arabianKey = arabianKeyMap.floorKey(number);
-            roman += arabianKeyMap.get(arabianKey);
+            roman += arabianKeyMap.get(arabianKey);  }
+        catch (NullPointerException e) {  // исключение отрицательных чисел в римской системе
+            System.err.println("В римском исчислении отсутствуют отрицательные числа");
+            break;
+        }
             number -= arabianKey;
         } while (number != 0);
         return roman;
 
 
     }
-    //XV
-    public int romanToInt(String s) {
+    public int romanToInt(String s) { // создаем переменную для переобразования результата в римские числа
         int end = s.length() - 1;
         char[] arr = s.toCharArray();
         int arabian;
         int result = romanKeyMap.get(arr[end]);
-        for (int i = end - 1; i >= 0; i--) {
+        for (int i = end - 1; i >= 0; i--)
+        {
             arabian = romanKeyMap.get(arr[i]);
 
-            if (arabian < romanKeyMap.get(arr[i + 1])) {
+            if (arabian < romanKeyMap.get(arr[i + 1]))
+            {
                 result -= arabian;
-            } else {
+            }
+            else
+            {
                 result += arabian;
             }
 
