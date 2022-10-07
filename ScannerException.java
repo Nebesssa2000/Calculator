@@ -1,4 +1,4 @@
-public class ScannerException extends Exception {// была идея вывести исключения в отдельный файл, но пока не реализовал
+public class ScannerException extends Exception {//исключения
     public ScannerException(){
         System.out.println("Введенные числа меньше 1 или больше 10");
 
