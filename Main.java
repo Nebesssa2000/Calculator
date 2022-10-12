@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    private static String data;
 
     public static void main(String[] args) throws ScannerException {
         Scanner scanner = new Scanner(System.in);
@@ -35,11 +34,6 @@ public class Main {
             }
 
         }
-
-//        { //Проверка наличия математического действия
-//            System.err.println("строка не является математической операцией");
-//            // return;
-//        }
 
         String[] material = expression.split(separator[operationValue]);
         for (int c = 0;c < material.length; c++)
@@ -77,31 +71,19 @@ public class Main {
             {
                 try {
                     throw new IOException();
-                } catch (IOException e) {
-                    System.err.println("Введенные числа меньше 1 или больше 10");
-                }
-
-            }
-
-
-            result = switch (operation[operationValue]) {// Производим математические операции
+                } catch (IOException e) { System.err.println("Введенные числа меньше 1 или больше 10");}
+            } result = switch (operation[operationValue]) {// Производим математические операции
                 case "+" -> a + b;
                 case "-" -> a - b;
                 case "*" -> a * b;
-                default -> a / b;
-            };
-
+                default -> a / b;};
             if (isRoman) {
                 //если числа были римские, преобразуем результат ввиде римского числа
                 System.out.println(changeNumber.intToRoman(result));
             } else { //если числа были арабские, выводим результат
-                System.out.println(result);
-            }
-
-        } else { // если числа разных систем выводим исключение
-            System.err.println("используются одновременно разные системы счисления");
-
-        }
+                System.out.println(result); }
+        } else { System.err.println("используются одновременно разные системы счисления");// если числа разных систем выводим исключение
+               }
         return String.valueOf(result);
     }
 }
